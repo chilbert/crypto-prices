@@ -17,8 +17,6 @@ class Scraper
       coin_percent_change = coin.css("tr.PercentChange__Change-kQOTRQ.hoaDrd").text
       coins << {name: coin_name, short_code: coin_shortcode, url: coin_url, price: coin_price, market_cap: coin_market_cap, description: coin_description}
     end
-    coins[0..10]
-
-    binding.pry
+    coins
   end
 end
