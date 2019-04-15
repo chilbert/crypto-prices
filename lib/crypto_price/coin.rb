@@ -1,6 +1,6 @@
 class Coin
 
-  attr_accessor :name, :short_code, :price, :url, :change, :website_url, :market_cap, :description
+  attr_accessor :name, :short_code, :price, :url, :market_cap, :description, :website_url
 
   @@all = []
 
