@@ -3,7 +3,7 @@ require 'open-uri'
 
 class Scraper
 
-  def scrape_index_page
+  def self.scrape_index_page
     price_page = Nokogiri::HTML(open("https://www.coinbase.com/price"))
     coins = []
     price_page.css("tr.AssetRow__Wrapper-gHxsGo").each do |coin|
