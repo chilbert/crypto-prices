@@ -6,7 +6,7 @@ This cli program provides a CLI to view the current crypto coins that are availa
 
 Type the below and follow the on screen prompts.
 
-    $
+    $ bin/crypto-prices
 
 ## Development
 
