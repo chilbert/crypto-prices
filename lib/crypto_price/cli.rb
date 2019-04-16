@@ -11,7 +11,8 @@ class CLI
     puts ""
     make_coins
     display_coins
-    prompt
+    more_detail
+    closing_time
   end
 
   def make_coins
@@ -29,27 +30,59 @@ class CLI
     end
   end
 
-  def prompt
+  def coin_detail(input)
+    single = Coin.find_by_name(input)
+    puts "#{single.name}" + " - (#{single.short_code.upcase})"
     puts ""
-    puts "Which coin would you like to learn more about?"
+    puts " Price:" + " #{single.price}"
+    puts " Market Cap" + " #{single.market_cap}"
+    puts " Description:" + " #{single.description}"
+    puts " Coin Website:" + " #{single.url}"
+    sleep(5)
+  end
 
-    input = gets.strip
+  def more_detail
+    puts ""
+    puts "View detail on a coin by typing the coin shortcode (i.e. 'BTC'). To exit, type N."
+
+    input = gets.strip.upcase
 
     puts ""
-        puts "Would you like to see information on another coin? Enter Y or N"
+    puts ""
 
-        input = gets.strip.downcase
-        if input == "y"
-          start
-        elsif input == "n"
-          puts ""
-          puts "Thank you! Have a great day and happy investing!"
-          exit
-        else
-          puts ""
-          puts "I don't understand that answer and sure cannot invest it."
-          start
-        end
+    if input == "BTC" #Need to search all Shortcodes here and then if it finds, it, proceed with coin_detail
+      coin_detail(input)
+    elsif input == "N"
+      puts ""
+      puts "Thank you! Have a great day and happy investing!"
+      exit
+    else
+      puts ""
+      puts "I don't understand that answer.  Remember to use the coin shortcode."
+      sleep(3)
+
+      more_detail
+
+    end
+  end
+
+
+def closing_time
+    puts ""
+      puts "Would you like to see information on another coin? Enter Y or N"
+
+      input = gets.strip.downcase
+      if input == "y"
+        start
+      elsif input == "n"
+        puts ""
+        puts "Thank you! Have a great day and happy investing!"
+        exit
+      else
+        puts ""
+        puts "I don't understand that answer and sure cannot invest it."
+        start
+      end
   end
 
 

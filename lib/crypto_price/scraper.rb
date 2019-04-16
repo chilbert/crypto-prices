@@ -11,6 +11,7 @@ class Scraper
       coin_price = coin.css("div.Flex-NZkZp.gICBdl").text
       coin_market_cap = coin.css("td.AssetRow__Td-gjXXut.AssetRow__Cap-ciIRMg.dJJSHO").text
       coin_url = "https://www.coinbase.com" + coin.at_css("td.AssetRow__Td-gjXXut.bSIjBc a[href]")['href']
+      # I need to break the following line out into another method that is leveraged when a user asks for more information.
       single_page = Nokogiri::HTML(open(coin_url))
       coin_description = single_page.css("div.AssetInfo__DescriptionText-ezdzBo.gwIDYx").text
       coin_shortcode = coin.css("div.Flex-NZkZp.elpDKB > h4").text

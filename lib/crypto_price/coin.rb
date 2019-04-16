@@ -13,8 +13,13 @@ class Coin
 
   def self.create_from_full_list(coins_array)
     coins_array.each do |coin_hash|
-      Coin.new(coin_hash)
+    Coin.new(coin_hash)
     end
+  end
+
+  def self.find_by_name(shortcode)
+    single = self.all.detect{|c| c.short_code == shortcode}
+    single
   end
 
   def self.all
