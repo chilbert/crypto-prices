@@ -3,7 +3,7 @@ require "pry"
 class CLI
 
   def call
-    puts "Welcome to the Coin Base CLI.  You are about to see the tradeable coins at Coinbase.com!"
+    puts "Welcome to the Coin Base CLI.  You are viewing the tradeable coins at Coinbase.com!"
     start
   end
 
@@ -16,9 +16,13 @@ class CLI
   end
 
   def make_coins
-    coins_array = Scraper.scrape_index_page
-    Coin.create_from_full_list(coins_array)
-    Coin.all
+    if Coin.all.empty?
+      coins_array = Scraper.scrape_index_page
+      Coin.create_from_full_list(coins_array)
+      Coin.all
+    else
+      Coin.all
+  end
 
   end
 
@@ -32,25 +36,27 @@ class CLI
 
   def coin_detail(input)
     single = Coin.find_by_name(input)
+    description = Scraper.scrape_description(single.url)
+    Coin.update_description(single, description)
     puts "#{single.name}" + " - (#{single.short_code.upcase})"
     puts ""
     puts " Price:" + " #{single.price}"
     puts " Market Cap" + " #{single.market_cap}"
     puts " Description:" + " #{single.description}"
     puts " Coin Website:" + " #{single.url}"
-    sleep(5)
+    sleep(3)
   end
 
   def more_detail
     puts ""
-    puts "View detail on a coin by typing the coin shortcode (i.e. 'BTC'). To exit, type N."
+    puts "View detail on a coin by typing the coin shortcode (i.e. 'BTC' or 'ETH'). To exit, type N."
 
     input = gets.strip.upcase
 
     puts ""
     puts ""
 
-    if input == "BTC" #Need to search all Shortcodes here and then if it finds, it, proceed with coin_detail
+    if Coin.find_by_name(input)
       coin_detail(input)
     elsif input == "N"
       puts ""
@@ -60,9 +66,7 @@ class CLI
       puts ""
       puts "I don't understand that answer.  Remember to use the coin shortcode."
       sleep(3)
-
       more_detail
-
     end
   end
 
@@ -70,7 +74,6 @@ class CLI
 def closing_time
     puts ""
       puts "Would you like to see information on another coin? Enter Y or N"
-
       input = gets.strip.downcase
       if input == "y"
         start
