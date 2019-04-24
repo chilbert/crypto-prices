@@ -18,14 +18,13 @@ class Coin
   end
 
   def self.update_description(single, description)
-    if single.description == nil
+    if single.description.nil?
     single.description = description
     end
   end
 
   def self.find_by_name(shortcode)
     single = self.all.detect{|c| c.short_code == shortcode}
-    single
   end
 
   def self.all

@@ -49,7 +49,7 @@ class CLI
 
   def more_detail
     puts ""
-    puts "View detail on a coin by typing the coin shortcode (i.e. 'BTC' or 'ETH'). To exit, type N."
+    puts "View detail on a coin by typing the coin shortcode (i.e. 'BTC' or 'ETH'). To view full list again type, LIST. To exit, type N."
 
     input = gets.strip.upcase
 
@@ -62,11 +62,13 @@ class CLI
       puts ""
       puts "Thank you! Have a great day and happy investing!"
       exit
+    elsif input == "LIST"
+      start
     else
       puts ""
       puts "I don't understand that answer.  Remember to use the coin shortcode."
       sleep(3)
-      more_detail
+      start
     end
   end
 
@@ -84,6 +86,7 @@ def closing_time
       else
         puts ""
         puts "I don't understand that answer and sure cannot invest it."
+        puts ""
         start
       end
   end
