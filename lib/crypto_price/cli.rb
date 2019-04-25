@@ -27,7 +27,7 @@ class CLI
   end
 
   def display_coins
-    Coin.all.take(11).each do |coin|
+    Coin.all.each do |coin|
       puts "#{coin.name}" + " - (#{coin.short_code.upcase})"
       puts "  Price:" + " #{coin.price}"
       puts "----------------------"
